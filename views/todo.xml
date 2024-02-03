@@ -1,0 +1,81 @@
+<odoo>
+        <record id="todo_tree" model="ir.ui.view">
+            <field name="name">todo.tree</field>
+            <field name="model">todo.task</field>
+            <field name="arch" type="xml">
+                <tree  class="header_custom">
+                    <field name="message_partner_ids" string='Users' />
+                    <field name="task_name"/>
+                    <field name="due_date"/>
+                    <field name="task_description"/>
+                    <field name="status"/>
+                    
+                </tree>
+            </field>
+        </record>
+        <record id="todo_search" model="ir.ui.view">
+            <field name="name">todo.search</field>
+            <field name="model">todo.task</field>
+            <field name="arch" type="xml">
+                <search string="">
+                    <field name="message_partner_ids"/>
+                    <field name="status"/>
+                    <field name="task_name"/>
+                    <filter name='message_partner_ids' string='By User' context="{'group_by':'message_partner_ids'} "   />
+                    <filter name='due_date' string='By Due Date' context="{'group_by':'due_date'} "   />
+                    <filter name='status' string='By Status' context="{'group_by':'status'} "   />
+
+                    
+                </search>
+            </field>
+        </record>
+
+        <record id="todo_form" model="ir.ui.view" >
+                <field name="name">todo_form.form</field>
+                <field name="model">todo.task</field>
+                <field name="arch" type="xml">
+                    <form string="">
+                        <header>
+                                <button  name="start_task" type="object" string="New" class="btn-primary"/>
+
+                                
+                                <button name="release_task"  type="object" string="In Progress" class="btn btn-error"/>
+
+
+                                <button name="complet_task"  type="object" string="Completed" class="btn btn-sucess" />
+                            <field name="status" widget="statusbar"   />
+
+                        </header>
+                        <sheet>
+                            <group string="Genral info" >
+                            
+                                <field name="task_name" string='Task Name'/>
+                                <field name="due_date" string='Due Date' />
+                                <field name="task_description" string='Task Description' />
+                                <field name="message_partner_ids" string='Users' />
+                            </group >
+                            
+                        
+                            
+                        </sheet>
+                        <div class="oe_chatter">
+                            <field name="message_follower_ids"  />
+                            <field name="activity_ids"  />
+                            <field name="message_ids"  />
+
+                        </div>
+                    </form>
+                </field>
+        </record>
+        <record id="todo_action" model="ir.actions.act_window">
+            <field name="name">todo.action</field>
+            <field name="res_model">todo.task</field>
+            
+        </record>
+        <menuitem
+            id="todo_menu_item"
+            name="Creat Task"
+            action="todo_action"
+            parent="todo_menu"
+            />
+</odoo>
